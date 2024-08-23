@@ -149,11 +149,17 @@
 // echo $int;
 // echo PHP_EOL;
 
-print_r($_GET);
-print_r($_POST);
-print_f($_FILES);
+// print_r($_GET);
+// print_r($_POST);
+// print_f($_FILES);
 
-if(isset($_FILES["upload_file"]))
-{
-    move_uploaded_file(["upload_file"]["tmp_name"], '/app/public/ .$_FILES[upload_file][tmp_name]');
-}
+// if(isset($_FILES["upload_file"]))
+// {
+//     move_uploaded_file(["upload_file"]["tmp_name"], '/app/public/ .$_FILES[upload_file][tmp_name]');
+// }
+
+include('../src/main.php');
+
+$main = new Main();
+
+$main->main();
