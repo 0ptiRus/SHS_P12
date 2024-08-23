@@ -3,16 +3,19 @@
 use Request\Get;
 use Request\Post;
 use Request\Server;
+use Request\Request;
 use Routing\Route;
 use Shop\Customer\Order;
 
 class Main 
 {
-    private Get $get;
+    //private Get $get;
 
-    private Post $post;
+    //private Post $post;
 
-    private Server $server;
+    //private Server $server;
+
+    private Request $request;
 
     private Route $route;
     // public string $var1 = "var1";
@@ -46,13 +49,13 @@ class Main
         {
             $class =  "Controllers\\" . implode("\\", $namespace) . "\\" . $base[0];
             $object = new $class();
-            if($this->server->isGet())
+            if($this->request->getServer()->isGet())
             {
-                echo $object->getRequest($this->get);
+                echo $object->getRequest($this->request->getGet());
             }
-            else if($this->server->isPost())
+            else if($this->request->getServer()->isPost())
             {
-                echo $object->postRequest($this->post);
+                echo $object->postRequest($this->request->getPost());
             }
         }
         print_r($namespace);
@@ -66,16 +69,17 @@ class Main
             $file = __DIR__ . "/" . str_replace('\\', '/', $class) . ".php";
             if(file_exists($file))
             {
-                print_r($file);
+                //print_r($file);
                 include($file);
                 return true;
             }
             return false;
         });
 
-        $this->get = new Get($_GET);  
-        $this->post = new Post($_POST);   
-        $this->server = new Server($_SERVER);
+        // $this->get = new Get($_GET);  
+        // $this->post = new Post($_POST);   
+        // $this->server = new Server($_SERVER);
+        $this->request = new Request($_GET, $_POST, $_SERVER);
         $this->route = new Route($_SERVER["REQUEST_URI"]);   
     }
 }
