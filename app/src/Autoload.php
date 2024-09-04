@@ -7,8 +7,6 @@ class Autoload
         spl_autoload_register(function($class)
         {
             $class = str_replace('\\', '/', $class);
-            $class = ucwords($class, "/-_");
-            $class = str_replace(['-','_'], '', $class);
             $file = __DIR__ . "/" . $class . ".php";
             if(file_exists($file))
             {

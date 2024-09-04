@@ -20,6 +20,9 @@ class Main
         if($base)
         {
             $class =  "Controllers\\" . implode("\\", $namespace) . "\\" . $base[0];
+            $class = ucwords($class, "\-_");
+            $class = str_replace(['-','_'], '', $class);
+            echo $class;
             $object = new $class();
             if($this->request->getServer()->isGet())
             {
