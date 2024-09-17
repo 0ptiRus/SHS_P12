@@ -38,6 +38,12 @@ class Db
     {
         return $this->pdo->query($sql, PDO::FETCH_ASSOC);
     }
+    
+    public function execute(string $sql, array $params = []) : bool
+{
+    $stmt = $this->pdo->prepare($sql);
+    return $stmt->execute($params);
+}
 
     public function getRowByClass(string $sql, string $class) : array
     {
